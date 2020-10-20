@@ -1,0 +1,23 @@
+{
+  "name": "clq-lazy",
+  "version": "1.0.0",
+  "description": "react 图片懒加载",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linqiangchen/clq-lazy.git"
+  },
+  "keywords": [
+    "react",
+    "懒加载"
+  ],
+  "author": "陈林强",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linqiangchen/clq-lazy/issues"
+  },
+  "homepage": "https://github.com/linqiangchen/clq-lazy#readme"
+}
