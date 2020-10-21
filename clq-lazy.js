@@ -2,8 +2,9 @@ import React from 'react'
 var io = new IntersectionObserver(
     entries => { 
       entries.forEach(item => {
-          if(item.intersectionRatio && !item.target.src){
-              item.target.src = item.target.getAttribute('_src');   
+          if(item.intersectionRatio && item.target.src !==item.target.getAttribute('_src')){
+              item.target.src = item.target.getAttribute('_src');  
+             
           }
       })
     }

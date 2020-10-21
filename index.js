@@ -37,7 +37,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var io = new IntersectionObserver(function (entries) {
   entries.forEach(function (item) {
-    if (item.intersectionRatio && !item.target.src) {
+    if (item.intersectionRatio && item.target.src !== item.target.getAttribute('_src')) {
       item.target.src = item.target.getAttribute('_src');
     }
   });
