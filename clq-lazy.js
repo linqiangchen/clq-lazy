@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useEffect,useRef} from 'react'
 var io = new IntersectionObserver(
     entries => { 
       entries.forEach(item => {
@@ -9,21 +9,17 @@ var io = new IntersectionObserver(
       })
     }
   );
-export default class LazyImg extends React.Component {
-    constructor(props){
-        super(props);
-        this.imgRef = React.createRef()
-    }
-    imgRef = React.createRef()
-    render(){
+export default function LazyImg(props) {
+   const ref = useRef(null)
+   useEffect(() => {
+    io.observe(ref.current)
+       return () => {
+        io.unobserve(ref.current);
+       }
+   }, [])
         return (
-             <img ref={this.imgRef} _src={this.props.imgSrc}></img>
+             <img ref={ref} _src={props.src}></img>
         )
-    }
-    componentDidMount(){ 
-        io.observe(this.imgRef.current)
-    }
-    componentWillUnmount(){
-        io.unobserve(this.imgRef.current);
-    }   
+    
+   
 }
