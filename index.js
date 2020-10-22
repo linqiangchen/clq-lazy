@@ -33,14 +33,26 @@ function LazyImg(props) {
       show = _useState2[0],
       setShow = _useState2[1];
 
+  var _useState3 = (0, _react.useState)(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      src = _useState4[0],
+      setSrc = _useState4[1];
+
   var ref = (0, _react.useRef)(null);
   var load = (0, _react.useRef)(null);
   (0, _react.useEffect)(function () {
     var _io = new IntersectionObserver(function (entries) {
       entries.forEach(function (item) {
         if (item.intersectionRatio && load.current !== props.src) {
-          setShow(true);
-          load.current = props.src;
+          var img = new Image();
+          img.src = props.src;
+
+          img.onload = function () {
+            setShow(true);
+            setSrc(props.src);
+            load.current = props.src;
+            img = null;
+          };
         }
       });
     });
@@ -56,9 +68,8 @@ function LazyImg(props) {
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     ref: ref
   }, show ? /*#__PURE__*/_react.default.createElement("img", {
-    ref: ref,
-    src: show ? props.src : ''
+    src: show ? src : ''
   }) : /*#__PURE__*/_react.default.createElement("div", {
-    className: "gu"
+    className: "gu " + props.className
   })));
 }

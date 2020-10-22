@@ -2,6 +2,7 @@ import React ,{useEffect,useRef,useState} from 'react'
 import './style.css'
 export default function LazyImg(props) {
     const [show, setShow] = useState(false)
+    const [src, setSrc] = useState('')
     const ref = useRef(null)
     const load = useRef(null)
    useEffect(() => {
@@ -9,8 +10,15 @@ export default function LazyImg(props) {
         entries => { 
           entries.forEach(item => {
               if(item.intersectionRatio && load.current !== props.src){ 
-                setShow(true)
-                load.current = props.src
+                let img = new Image()
+                img.src = props.src;
+                img.onload =()=>{
+                  setShow(true)
+                  setSrc(props.src)
+                  load.current = props.src;
+                  img = null;
+                }
+               
               }
           })
         }
@@ -23,7 +31,7 @@ export default function LazyImg(props) {
    }, [])
         return <>
              <div ref={ref} >
-                {show?<img ref={ref}  src={show?props.src:''} /> : <div className="gu"></div>}
+                {show?<img   src={show?src:''} /> : <div className={"gu " + props.className}></div>}
             </div>
              </>
 }
