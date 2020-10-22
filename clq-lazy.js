@@ -1,5 +1,5 @@
 import React ,{useEffect,useRef,useState} from 'react'
-import './style.scss'
+import './style.css'
 export default function LazyImg(props) {
     const [show, setShow] = useState(false)
     const ref = useRef(null)
@@ -22,7 +22,7 @@ export default function LazyImg(props) {
     }
    }, [])
         return <>
-             <div ref={ref} _src={props.src}>
+             <div ref={ref} >
                 {show?<img ref={ref}  src={show?props.src:''} /> : <div className="gu"></div>}
             </div>
              </>

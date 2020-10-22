@@ -9,7 +9,7 @@ exports.default = LazyImg;
 
 var _react = _interopRequireWildcard(require("react"));
 
-require("./style.scss");
+require("./style.css");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
@@ -54,8 +54,7 @@ function LazyImg(props) {
     };
   }, []);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
-    ref: ref,
-    _src: props.src
+    ref: ref
   }, show ? /*#__PURE__*/_react.default.createElement("img", {
     ref: ref,
     src: show ? props.src : ''
