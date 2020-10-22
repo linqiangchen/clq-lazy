@@ -5,6 +5,7 @@ export default function LazyImg(props) {
     const [src, setSrc] = useState('')
     const ref = useRef(null)
     const load = useRef(null)
+    
    useEffect(() => {
        let _io = new IntersectionObserver(
         entries => { 
@@ -17,8 +18,12 @@ export default function LazyImg(props) {
                   setSrc(props.src)
                   load.current = props.src;
                   img = null;
-                }
-               
+               typeof props.loadEnd === "function" && props.loadEnd(item)
+                } 
+              }else if(item.intersectionRatio && load.current === props.src){
+                typeof props.appear === "function" && props.appear(item)  
+              }else if(!item.intersectionRatio  && load.current === props.src){
+                typeof props.hide === "function" && props.hide(item)  
               }
           })
         }
@@ -31,7 +36,7 @@ export default function LazyImg(props) {
    }, [])
         return <>
              <div ref={ref} >
-                {show?<img   src={show?src:''} /> : <div className={"gu " + props.className}></div>}
+                {show?<img src={show?src:''} /> :( props.unSK? "": <div className={"gu " + props.className}></div>)}
             </div>
-             </>
+         </>
 }

@@ -52,7 +52,12 @@ function LazyImg(props) {
             setSrc(props.src);
             load.current = props.src;
             img = null;
+            typeof props.loadEnd === "function" && props.loadEnd(item);
           };
+        } else if (item.intersectionRatio && load.current === props.src) {
+          typeof props.appear === "function" && props.appear(item);
+        } else if (!item.intersectionRatio && load.current === props.src) {
+          typeof props.hide === "function" && props.hide(item);
         }
       });
     });
@@ -69,7 +74,7 @@ function LazyImg(props) {
     ref: ref
   }, show ? /*#__PURE__*/_react.default.createElement("img", {
     src: show ? src : ''
-  }) : /*#__PURE__*/_react.default.createElement("div", {
+  }) : props.unSK ? "" : /*#__PURE__*/_react.default.createElement("div", {
     className: "gu " + props.className
   })));
 }
