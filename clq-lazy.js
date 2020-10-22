@@ -1,20 +1,29 @@
-import React ,{useEffect,useRef} from 'react'
-var io = new IntersectionObserver(
-    entries => { 
-      entries.forEach(item => {
-          if(item.intersectionRatio && item.target.src !==item.target.getAttribute('_src')){
-              item.target.src = item.target.getAttribute('_src');   
-          }
-      })
-    }
-  );
+import React ,{useEffect,useRef,useState} from 'react'
+import './style.scss'
 export default function LazyImg(props) {
-   const ref = useRef(null)
+    const [show, setShow] = useState(false)
+    const ref = useRef(null)
+    const load = useRef(null)
    useEffect(() => {
-    io.observe(ref.current)
+       let _io = new IntersectionObserver(
+        entries => { 
+          entries.forEach(item => {
+              if(item.intersectionRatio && load.current !== props.src){ 
+                setShow(true)
+                load.current = props.src
+              }
+          })
+        }
+      );
+    _io.observe(ref.current)
     return () => {
-        io.unobserve(ref.current);
+        _io.unobserve(ref.current);
+        _io = null
     }
    }, [])
-        return <img ref={ref} _src={props.src}></img>      
+        return <>
+             <div ref={ref} _src={props.src}>
+                {show?<img ref={ref}  src={show?props.src:''} /> : <div className="gu"></div>}
+            </div>
+             </>
 }
