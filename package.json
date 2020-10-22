@@ -1,6 +1,6 @@
 {
   "name": "clq-lazy",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "react 图片懒加载",
   "main": "index.js",
   "scripts": {
